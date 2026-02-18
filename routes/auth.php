@@ -7,6 +7,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResendEmailVerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\V1\CompanyController;
+use App\Http\Controllers\V1\ProductController;
+/*use App\Http\Controllers\V1\OrderController;
+use App\Http\Controllers\V1\OrderTemporaryController;*/
+use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->middleware('api')->group(function () {
@@ -20,3 +25,12 @@ Route::prefix('auth')->middleware('api')->group(function () {
         Route::post('logout', LogoutController::class)->name('logout');
     });
 });
+
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('company', CompanyController::class);
+    Route::apiResource('product', ProductController::class);
+    /*Route::apiResource('order_temporary', OrderTemporaryController::class);
+    Route::post('order_temporary/commit', [OrderTemporaryController::class, 'commit'])->name('order_temporary.commit');*/
+});
+

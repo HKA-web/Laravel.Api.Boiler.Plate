@@ -10,9 +10,6 @@ use Illuminate\Support\Collection;
 
 trait ApiResponse
 {
-    /**
-     * @param  array<string, mixed> | Collection<string, mixed> | AnonymousResourceCollection | JsonResource  $data
-     */
     public function resolveSuccessResponse(string $message, array | Collection | AnonymousResourceCollection | JsonResource $data = [], int $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json(
@@ -24,10 +21,6 @@ trait ApiResponse
             status: $status,
         );
     }
-
-    /**
-     * @param  array<string, mixed> | Collection<string, mixed> | AnonymousResourceCollection | JsonResource  $errors
-     */
     public function resolveFailedResponse(string $message, array | Collection | AnonymousResourceCollection | JsonResource $errors = [], int $status = Response::HTTP_NOT_FOUND): JsonResponse
     {
         return response()->json(
