@@ -8,41 +8,6 @@
 
 This repository provides a production-ready boilerplate for creating RESTful APIs using Laravel 12, with a focus on clean, maintainable code. It leverages Actions, Data Transfer Objects (DTOs), API Resources, and modern best practices to ensure a scalable and well-documented architecture.
 
-## Table of Contents
-
--   [Features](#features)
--   [Getting Started](#getting-started)
-    -   [Prerequisites](#prerequisites)
-    -   [Installation](#installation)
-    -   [Running the API](#running-the-api)
-    -   [API Documentation](#api-documentation)
--   [API Endpoints](#api-endpoints)
--   [Usage](#usage)
-    -   [Architecture Overview](#architecture-overview)
-    -   [Creating New Features](#creating-new-features)
-    -   [Authentication](#authentication)
-    -   [Response Format](#response-format)
--   [Testing](#testing)
--   [Code Quality](#code-quality)
--   [Contributing](#contributing)
--   [License](#license)
--   [Security](#security)
-
-## Features
-
--   **RESTful API**: Preconfigured routes and controllers for building APIs
--   **Authentication System**: Complete auth implementation with JWT tokens using Laravel Sanctum
--   **Email Verification**: Secure email verification workflow
--   **Password Reset**: Robust password reset functionality
--   **Actions**: Separate business logic into single-responsibility classes
--   **DTOs**: Manage data flow between layers of the application
--   **API Resources**: Transform models into consistent JSON responses
--   **API Documentation**: Auto-generated API docs with Scramble
--   **Clean Code**: Emphasis on readability, reusability, and performance
--   **Testing Suite**: Comprehensive test coverage using Pest
--   **Code Quality**: Static analysis with PHPStan and code formatting with Pint
--   **Laravel 12**: Leverage the latest features and enhancements in Laravel
-
 ## Getting Started
 
 ### Prerequisites
@@ -122,63 +87,19 @@ The OpenAPI specification is available at:
 http://localhost:8000/docs/api.json
 ```
 
-## API Endpoints
-
-### Authentication
-
-| Method | Endpoint                             | Description               | Authentication |
-| ------ | ------------------------------------ | ------------------------- | -------------- |
-| POST   | `/api/auth/register`                 | Register a new user       | No             |
-| POST   | `/api/auth/login`                    | Login user                | No             |
-| POST   | `/api/auth/logout`                   | Logout user               | Required       |
-| POST   | `/api/auth/forgot-password`          | Send password reset link  | No             |
-| POST   | `/api/auth/reset-password`           | Reset password with token | No             |
-| GET    | `/api/auth/verify-email/{id}/{hash}` | Verify email address      | Required       |
-| POST   | `/api/auth/resend-email`             | Resend verification email | Required       |
-
-### API Information
-
-| Method | Endpoint | Description          | Authentication |
-| ------ | -------- | -------------------- | -------------- |
-| GET    | `/api/`  | Get API version info | No             |
-
-## Usage
-
-### Architecture Overview
-
-This boilerplate follows a clean architecture pattern with the following components:
-
--   **Routes**: Define your API routes in `routes/api.php` and `routes/auth.php`
--   **Controllers**: Implement your API logic using controllers located in `app/Http/Controllers`
--   **Actions**: Organize business logic in `app/Actions` using the custom `make:action {name}` command
--   **DTOs**: Use Data Transfer Objects in `app/DataTransferObjects` with `make:dto {name}` command
--   **Resources**: Transform model data using API Resources in `app/Http/Resources`
--   **Requests**: Validate incoming data using Form Requests in `app/Http/Requests`
-
 ### Creating New Features
 
-1. **Generate an Action:**
-
+1. **Generate CRUD:**
     ```bash
-    php artisan make:action Auth/CustomAction
+    php artisan make:api-crud <name module>
     ```
-
-2. **Generate a DTO:**
-
+    
+2. **Generate Temporary:**
     ```bash
-    php artisan make:dto Auth/CustomData
+    make:api-temporary-crud <name module>
     ```
-
-3. **Generate a Resource:**
-
-    ```bash
-    php artisan make:resource Api/CustomResource
-    ```
-
-4. **Generate a Request:**
-    ```bash
-    php artisan make:request Api/CustomRequest
-    ```
+    
+3. **Register your route in file :  routes/auth.php **
 
 ### Authentication
 
@@ -196,9 +117,17 @@ All API responses follow a consistent format:
 
 ```json
 {
-  "status": "success",
-  "message": "Operation completed successfully",
-  "data": {...}
+  "skip": 0,
+  "take": 10,
+  "totalCount": 1,
+  "execution": 1.36,
+  "data": [
+    {
+      "company_id": "tes",
+      "status": "string",
+      "is_removed": false
+    }
+  ]
 }
 ```
 
@@ -206,45 +135,17 @@ All API responses follow a consistent format:
 
 ```json
 {
-  "status": "error",
-  "message": "Something went wrong",
-  "errors": {...}
+  "error": [
+    {
+      "file": "/media/Data/Projects/ERP/api-boiler/vendor/laravel/framework/src/Illuminate/Database/Connection.php",
+      "line": 778,
+      "function": "runQueryCallback",
+      "class": "Illuminate\\Database\\Connection",
+      "type": "->"
+    },{...}
+  ]
 }
 ```
-
-## Testing
-
-Run the test suite using Pest:
-
-```bash
-# Run all tests
-php artisan test
-
-# Run specific test file
-php artisan test tests/Feature/Auth/LoginTest.php
-
-# Run tests with coverage
-php artisan test --coverage
-```
-
-## Code Quality
-
-### Static Analysis
-
-Run PHPStan for static analysis:
-
-```bash
-vendor/bin/phpstan analyse
-```
-
-### Code Formatting
-
-Format your code using Laravel Pint:
-
-```bash
-vendor/bin/pint
-```
-
 
 ## Contributing
 
