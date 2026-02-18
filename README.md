@@ -22,7 +22,7 @@ This repository provides a production-ready boilerplate for creating RESTful API
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/holiq/api-boilerplate.git
+    https://github.com/HKA-web/Laravel.Api.Boiler.Plate.git
     ```
 
 2. **Navigate to the project directory:**
