@@ -96,7 +96,7 @@ http://localhost:8000/docs/api.json
     
 2. **Generate Temporary:**
     ```bash
-    make:api-temporary-crud <name module>
+    php artisan make:api-temporary-crud <name module>
     ```
     
 3. **Register your route in file :  routes/auth.php **
